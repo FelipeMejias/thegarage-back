@@ -12,8 +12,10 @@ app.use(json())
 const bancoUsuarios=[]
 
 app.post('/cadastro',async (req,res)=>{
+    console.log('cheguei')
     const {nome,email,senha,icone}=req.body
     const senhaCript = bcrypt.hashSync(senha, 10);
+    console.log(nome,email,senha,icone)
     if( nome && email && senha && icone ){
         const novo = {
             nome,
@@ -28,6 +30,7 @@ app.post('/cadastro',async (req,res)=>{
             moedas:0
         }
         try{
+            console.log('cheguei')
             bancoUsuarios.push(novo)
             res.sendStatus(200)
         } catch (e) {
@@ -41,6 +44,7 @@ app.post('/cadastro',async (req,res)=>{
     }
 })
 app.post('/login',async (req,res)=>{
+    console.log(bancoUsuarios)
     const {nome,senha}=req.body
     try {
         const user = acharUsuarioPorNome(nome)
@@ -57,6 +61,7 @@ app.post('/login',async (req,res)=>{
     }
 })
 app.get('/usuarios',async (req,res)=>{
+    console.log(bancoUsuarios)
     res.status(200).send(bancoUsuarios)
 })
 
